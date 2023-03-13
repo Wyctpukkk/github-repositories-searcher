@@ -30,6 +30,10 @@ async function request(search) {
 function getRequest(value) {
   let search = value;
   request(search);
+  const article = [...document.querySelectorAll('article')];
+  article.map((obj, _) => {
+    obj.remove();
+  });
 }
 
 function createList(array) {
