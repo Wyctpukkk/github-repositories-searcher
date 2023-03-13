@@ -1,14 +1,22 @@
 const wrapper = document.querySelector('.wrapper');
+const errorInput = document.querySelector('.search__error');
 const input = document.querySelector('.search__input');
 const btn = document.querySelector('.search__btn');
-
-console.log(input.value);
 
 btn.addEventListener('click', (e) => {
   e.preventDefault();
   getRequest(input.value);
 });
-// input.addEventListener('input', (e) => console.log(e.target.value));
+input.addEventListener('input', (e) => validateInput(e.target.value));
+
+let validateState = false;
+
+function validateInput(value) {
+  value.length < 4
+    ? ((errorInput.innerHTML = 'введено менее 4 символов'),
+      (validateState = false))
+    : ((errorInput.innerHTML = ''), (validateState = true));
+}
 
 async function request(search) {
   const getReps = await fetch(
@@ -25,26 +33,38 @@ function getRequest(value) {
 }
 
 function createList(array) {
-  console.log(array);
-  array.map((obj, id) => {
-    let article = document.createElement('article');
-    article.innerHTML = ` 
-    <article class="response">
-    <img class="response__avatar" src="${obj.owner.avatar_url}" alt="avatar" />
-    <ul class="response__list">
-      <li class="response__item">
-        <p class="response__desc">Repository:</p>
-        <a class="response__link" target="_blank" href="${obj.html_url}">${obj.name}</a>
-      </li>
-      <li class="response__item">
-        <p class="response__desc">Owner:</p>
-        <a class="response__link" target="_blank" href="${obj.owner.html_url}">${obj.owner.login}</a>
-      </li>
-      <li class="response__item">
-        <p class="response__desc">Description:<span>${obj.description}</span></p>
-      </li>
-    </ul>
-  </article>`;
-    wrapper.append(article);
-  });
+  if (validateState) {
+    if (array.length < 1) {
+      let article = document.createElement('article');
+      article.innerHTML = ` 
+           <article class="response">
+               <p class="response__desc">Репозитории с таким именем не найдены</p>
+           </article>`;
+      wrapper.append(article);
+    } else {
+      array.map((obj, _) => {
+        let article = document.createElement('article');
+        article.innerHTML = ` 
+            <article class="response">
+            <img class="response__avatar" src="${obj.owner.avatar_url}" alt="avatar" />
+            <ul class="response__list">
+              <li class="response__item">
+                <p class="response__desc">Repository:</p>
+                <a class="response__link" target="_blank" href="${obj.html_url}"><span>${obj.name}</span></a>
+              </li>
+              <li class="response__item">
+                <p class="response__desc">Owner:</p>
+                <a class="response__link" target="_blank" href="${obj.owner.html_url}"><span>${obj.owner.login}</span></a>
+              </li>
+              <li class="response__item">
+                <p class="response__desc">Description:<span>${obj.description}</span></p>
+              </li>
+            </ul>
+          </article>`;
+        wrapper.append(article);
+      });
+    }
+  } else {
+    alert('Что-то не правильно введено в поиск, попробуйте обнавить страницу');
+  }
 }

@@ -4,6 +4,7 @@ body {
   font-family: 'Montserrat', sans-serif;
   font-size: 16px;
   font-weight: 500;
+  background-color: rgba(233, 233, 233, 0.493);
 }
 
 .wrapper {
@@ -12,6 +13,7 @@ body {
 }
 
 .search {
+  position: relative;
   &__title {
     font-size: 32px;
     font-weight: 500;
@@ -35,18 +37,24 @@ body {
     background-color: rgb(255, 166, 0);
     border-radius: 10px;
   }
+  &__error {
+    position: absolute;
+    left: 10px;
+    top: 110px;
+    color: red;
+    font-size: 18px;
+  }
 }
 
 .response {
   display: flex;
   padding: 10px;
   margin: 10px 0px 10px 0px;
-  background-color: rgb(255, 223, 196);
+  background-color: rgba(251, 251, 251, 0.8);
   border-radius: 10px;
   &__avatar {
     width: 150px;
     height: 150px;
-    background-color: red;
     border-radius: 50%;
   }
   &__list {
@@ -59,7 +67,17 @@ body {
     display: flex;
   }
   &__desc {
+    span {
+      margin-left: 10px;
+      color: black;
+      font-size: 14px;
+      font-weight: 300;
+    }
   }
   &__link {
+    margin-left: 10px;
+    color: black;
+    font-size: 14px;
+    font-weight: 300;
   }
 }
