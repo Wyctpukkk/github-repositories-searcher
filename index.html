@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <title>GITHUB REPS</title>
+  </head>
+  <body>
+    <main>
+      <div class="wrapper">
+        <form class="search">
+          <h1 class="search__title">Git<span>Hub</span> repository searcher</h1>
+          <input
+            class="search__input"
+            type="text"
+            placeholder="Название репозитория"
+          />
+          <button class="search__btn">Найти!</button>
+        </form>
+        <article class="response">
+          <img class="response__avatar" src="" alt="avatar" />
+          <ul class="response__list">
+            <li class="response__item">
+              <p class="response__desc">Repository:</p>
+              <a class="response__link" target="_blank" href="">Name</a>
+            </li>
+            <li class="response__item">
+              <p class="response__desc">Owner:</p>
+              <a class="response__link" target="_blank" href="">Name</a>
+            </li>
+            <li class="response__item">
+              <p class="response__desc">Description:<span>TEXT</span></p>
+            </li>
+          </ul>
+        </article>
+      </div>
+    </main>
+    <script src="/script.js"></script>
+  </body>
+</html>
