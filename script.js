@@ -3,13 +3,13 @@ const errorInput = document.querySelector('.search__error');
 const input = document.querySelector('.search__input');
 const btn = document.querySelector('.search__btn');
 
+let validateState = false;
+
 btn.addEventListener('click', (e) => {
   e.preventDefault();
   getRequest(input.value);
 });
 input.addEventListener('input', (e) => validateInput(e.target.value));
-
-let validateState = false;
 
 function validateInput(value) {
   value.length < 4
@@ -19,21 +19,27 @@ function validateInput(value) {
 }
 
 async function request(search) {
-  const getReps = await fetch(
-    `https://api.github.com/search/repositories?per_page=10&q=${search}`
-  );
-  let response = await getReps.json();
+  try {
+    const getReps = await fetch(
+      `https://api.github.com/search/repositories?per_page=10&q=${search}`
+    );
+    let response = await getReps.json();
 
-  createList(response.items);
+    createList(response.items);
+  } catch (err) {
+    alert('Возможно сервер сейчас не работает, попробуйте позже');
+  }
 }
 
 function getRequest(value) {
   let search = value;
   request(search);
   const article = [...document.querySelectorAll('article')];
-  article.map((obj, _) => {
-    obj.remove();
-  });
+  if (validateState) {
+    article.map((obj, _) => {
+      obj.remove();
+    });
+  }
 }
 
 function createList(array) {
